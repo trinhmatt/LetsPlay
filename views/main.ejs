@@ -1,0 +1,10 @@
+<% include partials/header %>
+<div class='container'>
+  <h1>Main</h1>
+  <ul>
+    <% for (i=0; i<ownedGames.response.games.length; i++) { %>
+      <li>App Id = <%= ownedGames.response.games[i].appid %></li>
+    <% } %>
+  </ul>
+</div>
+<% include partials/footer %>
