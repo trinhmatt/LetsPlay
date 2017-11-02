@@ -1,0 +1,12 @@
+<% include partials/header %>
+<div class='container'>
+  <div id='results'>
+  <h1>Shared Games</h1>
+    <ul>
+      <% for (i=0; i<sharedGames.length; i++) { %>
+        <li><%= sharedGames[i] %></li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+<% include partials/footer %>

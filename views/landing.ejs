@@ -1,9 +1,14 @@
 <% include partials/header %>
 <div class='container'>
-  <h1>home</h1>
-  <form method='POST' action='/'>
-    <input type='text' placeholder="Steam ID" name='steamID'></input>
-    <button>Go</button>
-  </form>
+  <div id='content'>
+    <h1>LetsPlay</h1>
+    <p>Find games you and a friend can play together</p>
+    <form method='POST' action='/results'>
+      <input type='text' placeholder="Steam ID #1" name='steamID1' class='id-input'></input>
+      <input type='text' placeholder="Steam ID #2" name='steamID2' class='id-input'></input>
+      <br>
+      <button class='btn btn-primary btn-sm'>Go</button>
+    </form>
+  </div>
 </div>
 <% include partials/footer %>

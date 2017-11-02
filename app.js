@@ -1,3 +1,5 @@
+//NEXT STEP: Styling
+
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
@@ -12,18 +14,48 @@ app.get('/', function(req, res){
 })
 
 
-app.post('/', function(req, res){
-  var id = '&steamid='+req.body.steamID,
+app.post('/results', function(req, res){
+  var id1 = '&steamid='+req.body.steamID1,
+      id2 = '&steamid='+req.body.steamID2,
       key = '06E0DD1DD9EF69BA5A953C2C70959E70',
-      api = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+key+id+'&format=json';
-  request(api, function(error, response, body){
+      userApi = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+key+id1+'&include_appinfo=1&format=json';
+
+  request(userApi, function(error, response, body){
     if (!error && response.statusCode == 200) {
-      var ownedGames = JSON.parse(body)
-      res.render('main', {ownedGames:ownedGames})
+      var ownedGames = JSON.parse(body),
+          userApi = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+key+id2+'&include_appinfo=1&format=json';
+
+      request(userApi, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+          var ownedGames2 = JSON.parse(body);
+          res.render('results', {sharedGames: sharedGames(ownedGames, ownedGames2)})
+        }
+      })
     }
   })
 })
 
+function sharedGames(ownedGames, ownedGames2) {
+  var shared = [];
+  if (ownedGames.response.games.length > ownedGames2.response.games.length) {
+    for (i=0; i<ownedGames2.response.games.length; i++) {
+      for (x=0; x<ownedGames.response.games.length; x++) {
+        if (ownedGames2.response.games[i].appid === ownedGames.response.games[x].appid) {
+          shared.push(ownedGames2.response.games[i].name)
+        }
+      }
+    }
+  } else {
+    for (i=0; i<ownedGames.response.games.length; i++) {
+      for (x=0; x<ownedGames2.response.games.length; x++) {
+        if (ownedGames.response.games[i].appid === ownedGames2.response.games[x].appid) {
+          shared.push(ownedGames.response.games[i].name)
+        }
+      }
+    }
+  }
+  return shared
+}
 
 
 app.listen(process.env.PORT || 5000, function(){
