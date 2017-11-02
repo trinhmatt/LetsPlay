@@ -3,19 +3,26 @@ Compares steam games between users and displays games in common
 
 Tech used:
 
-  -Node
+    -Node
 
-  -Express
+    -Express
 
-  -RequestJS
+    -RequestJS
 
-  -EJS
+    -EJS
 
-  -Body-parser
+    -Body-parser
 
-  -Bootstrap
+    -Bootstrap
 
-  -Deployed on Heroku
+    -Deployed on Heroku
 
+
+To do:
+
+    -Add error handling (if user enters invalid steam ID)
+    
+    -Sanitize inputs 
+ 
 
 https://lets-play-trinh.herokuapp.com
