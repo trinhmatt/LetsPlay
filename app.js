@@ -2,12 +2,25 @@
 
 var express = require('express'),
     app = express(),
+    flash = require('connect-flash'),
     bodyParser = require('body-parser'),
     request = require('request');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(flash());
 app.use(express.static('public'));
+
+app.use(require('express-session')({
+  secret: 'This is the secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(function(req, res, next){
+  res.locals.error = req.flash('error');
+  next();
+});
 
 app.get('/', function(req, res){
   res.render('landing')
@@ -31,6 +44,9 @@ app.post('/results', function(req, res){
           res.render('results', {sharedGames: sharedGames(ownedGames, ownedGames2)})
         }
       })
+    } else {
+      req.flash('error','Invalid ID')
+      res.redirect('/')
     }
   })
 })

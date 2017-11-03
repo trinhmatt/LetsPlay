@@ -11,10 +11,13 @@ html, body {
 }
 
 #content {
-  width: 50%;
-  margin: 0 auto;
   text-align: center;
-  padding-top: 35vh;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 25%;
 }
 
 #content h1 {
@@ -43,4 +46,11 @@ html, body {
 
 .id-input {
   outline: none;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  margin-top: 10px;
 }

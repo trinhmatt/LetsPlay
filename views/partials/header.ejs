@@ -10,3 +10,10 @@
     <link rel='stylesheet' href='css/styles.css'></link>
   </head>
     <body>
+      <div class='container'>
+        <% if (error && error.length > 0) { %>
+          <div class='alert alert-danger'>
+            <%= error %>
+          </div>
+        <% } %>
+      </div>
